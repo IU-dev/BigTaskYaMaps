@@ -9,11 +9,13 @@ pygame.init()
 scales = []
 scale = 17
 coord = [133.795384, -25.694768]
+types = ["map", "sat", "sat,skl"]
+type = types[0]
 while running:
     try:
         scales = [str(scale), str(scale)]
         scaler = ','.join(scales)
-        map_request = "http://static-maps.yandex.ru/1.x/?ll=" + str(coord[0]) + "," + str(coord[1]) + "&spn=" + scaler + "&l=sat&z=17"
+        map_request = "http://static-maps.yandex.ru/1.x/?ll=" + str(coord[0]) + "," + str(coord[1]) + "&spn=" + scaler + "&l="+ type +"&z=17"
         response = requests.get(map_request)
 
         if not response:
@@ -67,6 +69,13 @@ while running:
                 if coord[0] + 0.5 < 140:
                     coord[0] = coord[0] + 0.5 #140
                     print("Now coord = ", str(coord[0]))
+            elif event.key == 116:
+                if type == types[0]:
+                    type = types[1]
+                elif type == types[1]:
+                    type = types[2]
+                elif type == types[2]:
+                    type = types[0]
 pygame.quit()
 os.remove(map_file)
 #up 280, down 281
