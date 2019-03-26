@@ -8,7 +8,7 @@ running = True
 coord = []
 pygame.init()
 scales = []
-scale = 26
+scale = 17
 while running:
     try:
         coord = ["133.795384", "-25.694768"]
@@ -44,7 +44,7 @@ while running:
             running = False
         elif event.type == pygame.KEYDOWN:
             if event.key == 280:
-                if scale < 30:
+                if scale < 17:
                     scale += 1
                     print("Now scale = ",str(scale))
             elif event.key == 281:
