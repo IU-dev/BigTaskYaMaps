@@ -5,16 +5,15 @@ import os
 
 response = None
 running = True
-coord = []
 pygame.init()
 scales = []
 scale = 17
+coord = [133.795384, -25.694768]
 while running:
     try:
-        coord = ["133.795384", "-25.694768"]
         scales = [str(scale), str(scale)]
         scaler = ','.join(scales)
-        map_request = "http://static-maps.yandex.ru/1.x/?ll=" + coord[0] + "," + coord[1] + "&spn=" + scaler + "&l=sat&z=17"
+        map_request = "http://static-maps.yandex.ru/1.x/?ll=" + str(coord[0]) + "," + str(coord[1]) + "&spn=" + scaler + "&l=sat&z=17"
         response = requests.get(map_request)
 
         if not response:
@@ -43,6 +42,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.KEYDOWN:
+            print(event.key)
             if event.key == 280:
                 if scale < 17:
                     scale += 1
@@ -51,6 +51,23 @@ while running:
                 if scale > 1:
                     scale -= 1
                     print("Now scale = ", str(scale))
+            elif event.key == 273:
+                if coord[1] + 0.5 < -21:
+                    coord[1] = coord[1] + 0.5 #-21
+                    print("Now coord = ", str(coord[1]))
+            elif event.key == 274:
+                if coord[1] + 0.5 > -29:
+                    coord[1] = coord[1] - 0.5 #-29
+                    print("Now coord = ", str(coord[1]))
+            elif event.key == 276:
+                if coord[0] - 0.5 > 130:
+                    coord[0] = coord[0] - 0.5 #130
+                    print("Now coord = ", str(coord[0]))
+            elif event.key == 275:
+                if coord[0] + 0.5 < 140:
+                    coord[0] = coord[0] + 0.5 #140
+                    print("Now coord = ", str(coord[0]))
 pygame.quit()
 os.remove(map_file)
 #up 280, down 281
+# вверх-273 вниз-274 влево-276 вправо-275
